@@ -1,59 +1,49 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import NavigationUtil from "../navigator/NavigationUtil";
 
-class WelcomePage extends Component {
-    constructor(props){
-        super(props);
-        console.disableYellowBox = true; // 去除警告
-        this.state = {
-            time: 3
-        };
-    }
-
-    componentDidMount() {
-        NavigationUtil.navigation = this.props.navigation;
-        this.times = setInterval(()=>{
-            if(this.state.time <= 0){
-                NavigationUtil.resetToHomePage(this.props);
+function WelcomePage (props){
+    console.disableYellowBox = true; // 去除警告
+    const [count, setCount] = useState(3);
+    let times;
+    useEffect(()=>{
+        NavigationUtil.navigation = props.navigation;
+        times = setInterval(()=>{
+            if( count <= 0){
+                NavigationUtil.resetToHomePage(props);
+                return;
             }
-           this.setState({
-               time: this.state.time -1
-           })
+            setCount(count - 1)
         }, 1000);
         SplashScreen.hide();
+        return ()=>{
+            times && clearTimeout(times);
+        };
+    });
+    function Jump(){
+        NavigationUtil.resetToHomePage(props);
     }
-    componentWillMount(){
-        this.times && clearTimeout(this.times);
-    }
-    Jump = () => {
-        console.log(111);
-        NavigationUtil.resetToHomePage(this.props);
-    };
-    render() {
-        const {time} = this.state;
-        return (
-            <View style={styles.page}>
-                <View
-                    style={styles.jump}
+    return (
+        <View style={styles.page}>
+            <View
+                style={styles.jump}
+            >
+                <TouchableOpacity
+                    onPress={()=> Jump()}
                 >
-                    <TouchableOpacity
-                        onPress={()=> this.Jump()}
-                    >
-                        <Text
-                            style={styles.text}
-                        >跳过{time}</Text>
-                    </TouchableOpacity>
+                    <Text
+                        style={styles.text}
+                    >跳过{count}</Text>
+                </TouchableOpacity>
 
-                </View>
-                <Image
-                    style={styles.tinyLogo}
-                    source={require('../static/img/start-up.png')}
-                />
             </View>
-        );
-    }
+            <Image
+                style={styles.tinyLogo}
+                source={require('../static/img/start-up.png')}
+            />
+        </View>
+    );
 }
 const styles = StyleSheet.create({
     tinyLogo: {
