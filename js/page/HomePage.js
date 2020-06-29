@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
-import {Text, View, StatusBar, StyleSheet} from 'react-native';
+import {Text, View, StatusBar, StyleSheet, DeviceInfo} from 'react-native';
+import SafeAreaViewPlus from '../common/SafeAreaViewPlus';
 
 
 class HomePage extends Component {
     render() {
         return (
-            <View>
+            <>
                 <StatusBar
                     translucent={true}
                     backgroundColor="transparent"
                     barStyle="light-content"
                 />
-                <View style={styles.homeText}></View>
-            </View>
+                <SafeAreaViewPlus
+                    topColor={'#21A1F1'}
+                />
+                <Text>111111</Text>
+            </>
         );
     }
 }
