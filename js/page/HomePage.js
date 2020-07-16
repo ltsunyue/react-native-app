@@ -20,8 +20,44 @@ const DATA = [
         text: '娱乐',
     },
 ];
+
+const MENU = [
+    {
+        name: '\uebd2',
+        text: '爬山',
+    },{
+        name: '\uebd3',
+        text: '饭饭',
+    },{
+        name: '\uebd5',
+        text: '椰子',
+    },{
+        name: '\uebd7',
+        text: '游戏机',
+    },{
+        name: '\uebd8',
+        text: '扫卫生',
+    },{
+        name: '\uebdc',
+        text: '心动',
+    },{
+        name: '\uebe0',
+        text: '大吉他',
+    },{
+        name: '\uebde',
+        text: '气球',
+    },{
+        name: '\ue61d',
+        text: '看电影了',
+    },{
+        name: '\ue629',
+        text: '喽他',
+    },
+];
+
 function HomePage(){
     const [value, onChangeText] = useState(`请输入要搜索的内容`);
+
     return (
         <>
             <StatusBar
@@ -33,6 +69,7 @@ function HomePage(){
                 topColor={'#21A1F1'}
             />
             <View style={styles.header}>
+                <Ionicons style={styles.headerInputs} name='git-pull-request-outline'  size={26}/>
                 <TextInput
                     clearTextOnFocus={true}
                     style={styles.input}
@@ -40,7 +77,7 @@ function HomePage(){
                     onChangeText={text => onChangeText(text)}
                     placeholder={value}
                 />
-                <Ionicons style={styles.headerInput} name='ribbon-outline'  size={26}/>
+                <Ionicons style={styles.headerInput} name='add-circle-outline'  size={26}/>
                 <Ionicons style={styles.headerInput} name='settings-outline'  size={26}/>
             </View>
             <View style={styles.ionicond}>
@@ -49,6 +86,18 @@ function HomePage(){
                         <Ionicons name={ item.name } style={{color: '#fff'}}  size={26}/>
                         <Text style={{color: '#fff'}} >{ item.text }</Text>
                     </View>)
+                }
+            </View>
+            <View style={styles.grids}>
+                {
+                    MENU.length > 0 && MENU.map((item, index)=> {
+                        return(
+                            <View style={styles.gridsView} key={index}>
+                                <Text style={styles.instructions}>{item.name}</Text>
+                                <Text style={styles.gridsViewText}>{item.text}</Text>
+                            </View>
+                        )
+                    })
                 }
             </View>
             <View
@@ -87,6 +136,26 @@ function HomePage(){
     );
 }
 const styles = StyleSheet.create({
+    grids: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    gridsView: {
+        marginTop: 5,
+        width: width /5 ,
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    gridsViewText: {
+        fontSize: 10,
+    },
+    instructions: {
+        fontSize: 25,
+        marginBottom: 3,
+        fontFamily:'iconfont',
+    },
     input: {
         paddingLeft: 13,
         flex: 2,
@@ -103,12 +172,20 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center'
     },
+    headerInputs: {
+        marginLeft: 10,
+        width: 30,
+        color: '#fff',
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
     header: {
         flexDirection: 'row',
         height: 40,
         backgroundColor: '#21A1F1'
     },
     ionicond: {
+        marginBottom: 10,
         flexDirection: 'row',
         height: 60,
         backgroundColor: '#21A1F1'
@@ -193,4 +270,4 @@ const styles = StyleSheet.create({
         borderRadius: 0,
     },
 });
-export default HomePage;
+export default HomePage

@@ -188,7 +188,9 @@ android {
         }
     }
 }
-
+project.ext.vectoricons = [
+    iconFontNames: ['iconfont.ttf' ] //添加你需要赋值的字符文件
+]
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
